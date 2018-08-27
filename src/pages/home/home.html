@@ -1,18 +1,46 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
+    
+    <ion-buttons end>
+      <button ion-button icon-only color="royal">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+<ion-content>
+  <!-- <h3>Ionic Menu Starter</h3>
 
   <p>
     If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  </p> -->
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <!-- <button ion-button secondary menuToggle>Toggle Menu</button> -->
+
+  <!-- <ion-slides  class="slide-css" autoplay="100" loop="true" speed="1000" pager="true" autoplayDisableOnInteraction = "false">
+    <ion-slide style="background-image: url(http://lorempixel.com/output/fashion-q-c-640-480-4.jpg)"></ion-slide>
+    <ion-slide style="background-image: url(http://lorempixel.com/output/technics-q-c-640-480-1.jpg)"></ion-slide>
+  </ion-slides> -->
+  <ion-refresher (ionRefresh)="forceReload($event)">
+    <ion-refresher-content refreshingText="Reload from API...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
+      <h2 [innerHTML]="item.title.rendered"></h2>
+      <p [innerHTML]="item.excerpt.rendered"></p>
+    </button>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more posts ..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  
 </ion-content>
