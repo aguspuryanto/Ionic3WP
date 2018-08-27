@@ -65,11 +65,11 @@ export class PostDetailPage {
 	shareSheetShare() {
 		console.log( JSON.stringify(this.selectedItem) );
 
-		let sendTo   : any;
-		let subject  : string 	= this.selectedItem.content.rendered;
-		let message  : string 	= this.selectedItem.title.rendered;
-		let image    : string	= '';
-		let uri      : string	= this.selectedItem.link;
+		var sendTo = "";
+		let subject = this.removeHTMLInfo(this.selectedItem.content.rendered);
+		var message = this.selectedItem.title.rendered;
+		var image = "";
+		var uri = this.selectedItem.link;
 
 		this.socialSharing.share(message, subject, "", uri).then(() => {
 		  console.log("shareSheetShare: Success");
@@ -79,17 +79,35 @@ export class PostDetailPage {
 	}
 
 	whatsappShare(){
-		var msg = this.selectedItem.content + "-" + this.selectedItem.title ;
-		this.socialSharing.shareViaWhatsApp(msg, null, null);
+		var msg = this.removeHTMLInfo(this.selectedItem.content.rendered) + "-" + this.selectedItem.title.rendered;
+		this.socialSharing.shareViaWhatsApp(msg, null, null).then(() => {
+			console.log("shareSheetShare: Success");
+		}).catch(() => {
+			console.error("shareSheetShare: failed");
+		});
 	}
 
 	twitterShare(){
-		var msg = this.selectedItem.content + "-" + this.selectedItem.title ;
-		this.socialSharing.shareViaTwitter(msg, null, null);
+		var msg = this.removeHTMLInfo(this.selectedItem.content.rendered) + "-" + this.selectedItem.title.rendered;
+		this.socialSharing.shareViaTwitter(msg, null, null).then(() => {
+			console.log("shareSheetShare: Success");
+		}).catch(() => {
+			console.error("shareSheetShare: failed");
+		});
 	}
 
 	facebookShare() {
-		var msg = this.selectedItem.content + "-" + this.selectedItem.title ;
-		this.socialSharing.shareViaFacebook(msg, null, null);
+		var msg = this.removeHTMLInfo(this.selectedItem.content.rendered) + "-" + this.selectedItem.title.rendered;
+		this.socialSharing.shareViaFacebook(msg, null, null).then(() => {
+			console.log("shareSheetShare: Success");
+		}).catch(() => {
+			console.error("shareSheetShare: failed");
+		});
+	}
+
+	removeHTMLInfo(value: string){  
+		if (value){
+			return value.replace(/<\/?[^>]+>/gi, "");
+		}
 	}
 }
