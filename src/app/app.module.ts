@@ -14,6 +14,7 @@ import { HttpModule } from '@angular/http';
 
 // Plugin
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { AdMobFree } from '@ionic-native/admob-free';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -42,6 +43,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
     SocialSharing,
+    AdMobFree,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -1,8 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Slides, Platform } from 'ionic-angular';
 
+// Plugin
+import { LoadingController } from 'ionic-angular';
+import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
+
+// Page
 import { PostDetailPage } from './../post-detail/post-detail';
 
+// Modul
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
@@ -18,7 +24,7 @@ export class HomePage {
 
 	@ViewChild(Slides) slides: Slides;
 
-  constructor(public navCtrl: NavController, private http: Http, public platform: Platform) {
+  constructor(public navCtrl: NavController, private http: Http, public platform: Platform, public loading: LoadingController, private admobFree: AdMobFree) {
 		platform.registerBackButtonAction(() => {
 			console.log("backPressed 1");
 		});
@@ -27,10 +33,18 @@ export class HomePage {
   ionViewDidEnter() {
 		// this.slides.autoplayDisableOnInteraction = false;
 		this.page = '1';
+
+		let loading  = this.loading.create({
+			content: 'Loading data from server'
+		});
+		loading.present();
+
 		this.loadPosts( this.page ).then( data => {
 			console.log('Posts loaded', data);
 			this.items = data;
 		});
+				
+		loading.dismiss();
 
 		// return new Promise(resolve => {
 
@@ -43,6 +57,23 @@ export class HomePage {
 		// 	});
 
 		// });
+
+		const bannerConfig: AdMobFreeBannerConfig = {
+			// add your config here
+			id: 'ca-app-pub-9293763250492023/8573028797',
+			overlap: true, // set to true, to allow banner overlap webview
+			// for the sake of this example we will just use the test config
+			isTesting: true,
+			autoShow: true
+		};
+		
+		this.admobFree.banner.config(bannerConfig);
+		this.admobFree.banner.prepare()
+			 .then(() => {
+				 // banner Ad is ready
+				 // if we set autoShow to false, then we will need to call the show method here
+			 })
+			 .catch(e => console.log(e));
 	}
 
 	loadPosts( page ) {
@@ -57,23 +88,29 @@ export class HomePage {
 		      // we've got back the raw data, now generate the core schedule data
 		      // and save the data for later reference
 		      resolve( data );
-		    });
+				});
 
 		});
 	}
 
 	// Pull to refresh and force reload
   forceReload(refresher) {
-		let page = '1';		
-		if(this.loadPosts( page )){
-			refresher.complete();
-		}
+		let page = '1';
+		this.loadPosts( page ).then( data => {
+			// console.log('Posts loaded', data);
+			this.items = data;
+		});
+		refresher.complete();
   }
 
 	itemTapped(event, item) {
 		this.navCtrl.push(PostDetailPage, {
 		  item: item
 		});
+	}
+
+	viewMaps(event, item){
+		console.log("Event: " + event+"; " + item);
 	}
 
 	loadMore(infiniteScroll) {
@@ -90,6 +127,23 @@ export class HomePage {
 			}
 			infiniteScroll.complete();
 		});
+	}
+
+	getTitles(ev: any) {
+		this.initializeItems();
+		// set val to the value of the searchbar
+		let val = ev.target.value;
+		// if the value is an empty string don't filter the items
+		if (val && val.trim() != '') {
+			this.items = this.items.filter((item) => {
+				return (item.title.rendered.toLowerCase().indexOf(val.toLowerCase()) > -1);
+			})
+		}
+	}
+	
+	initializeItems() {
+		console.log('initialized all items');
+		// this.items = this.posts;
 	}
 
 }

@@ -27,16 +27,35 @@
     <ion-slide style="background-image: url(http://lorempixel.com/output/fashion-q-c-640-480-4.jpg)"></ion-slide>
     <ion-slide style="background-image: url(http://lorempixel.com/output/technics-q-c-640-480-1.jpg)"></ion-slide>
   </ion-slides> -->
+
+  <ion-searchbar [debounce]="500" placeholder="Cari: Posisi, Perusahaan..." (ionInput)="getTitles($event)"></ion-searchbar>
+
   <ion-refresher (ionRefresh)="forceReload($event)">
     <ion-refresher-content refreshingText="Reload from API...">
     </ion-refresher-content>
   </ion-refresher>
 
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <h2 [innerHTML]="item.title.rendered"></h2>
-      <p [innerHTML]="item.excerpt.rendered"></p>
-    </button>
+    <ion-item *ngFor="let item of items">
+      <!-- <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)"> -->
+        <h2 [innerHTML]="item.title.rendered" (click)="itemTapped($event, item)"></h2>
+        <p [innerHTML]="item.excerpt.rendered"></p>
+        <button ion-button clear> <ion-icon name="information-circle"></ion-icon> {{item.meta.company}}</button>
+        <button ion-button clear> <ion-icon name="flag"></ion-icon> {{item.meta.city}}</button>
+        <button ion-button clear (click)="viewMaps($event, item)"> <ion-icon name="pin"> </ion-icon> Maps </button>
+      <!-- </span> -->
+    </ion-item>
+    <!-- <ion-row>
+      <ion-col center text-center>
+        <ion-note>{{item.meta.company}}</ion-note>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>{{item.meta.city}}</ion-note>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>Lihat Maps</ion-note>
+      </ion-col>
+    </ion-row> -->
   </ion-list>
 
   <ion-infinite-scroll (ionInfinite)="loadMore($event)">
