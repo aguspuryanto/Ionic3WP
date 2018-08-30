@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Navbar } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Navbar, Platform } from 'ionic-angular';
 
 // Plugin
 import { SocialSharing } from '@ionic-native/social-sharing';
@@ -21,9 +21,15 @@ export class PostDetailPage {
 
 	selectedItem: any;
 
-  	constructor(public navCtrl: NavController, public navParams: NavParams, private socialSharing: SocialSharing) {
+  	constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, private socialSharing: SocialSharing) {
   		// If we navigated to this page, we will have an item available as a nav param
 		this.selectedItem = navParams.get('item');
+
+		let backAction =  platform.registerBackButtonAction(() => {
+			console.log("second");
+			this.navCtrl.pop();
+			backAction();
+		},2);
   	}
 
   	ionViewDidLoad() {
