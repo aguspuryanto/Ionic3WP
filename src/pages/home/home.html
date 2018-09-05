@@ -37,25 +37,12 @@
 
   <ion-list>
     <ion-item *ngFor="let item of items">
-      <!-- <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)"> -->
         <h2 [innerHTML]="item.title.rendered" (click)="itemTapped($event, item)"></h2>
         <p [innerHTML]="item.excerpt.rendered"></p>
-        <button ion-button clear> <ion-icon name="information-circle"></ion-icon> {{item.meta.company}}</button>
-        <button ion-button clear> <ion-icon name="flag"></ion-icon> {{item.meta.city}}</button>
-        <!-- <button ion-button clear (click)="viewMaps($event, item)"> <ion-icon name="pin"> </ion-icon> Maps </button> -->
-      <!-- </span> -->
+        <button ion-button clear> {{item.meta.company}}</button>
+        <button ion-button clear> {{item.meta.city}}</button>
+        <button ion-button clear>{{item.date | timeAgo}}</button>
     </ion-item>
-    <!-- <ion-row>
-      <ion-col center text-center>
-        <ion-note>{{item.meta.company}}</ion-note>
-      </ion-col>
-      <ion-col center text-center>
-        <ion-note>{{item.meta.city}}</ion-note>
-      </ion-col>
-      <ion-col center text-center>
-        <ion-note>Lihat Maps</ion-note>
-      </ion-col>
-    </ion-row> -->
   </ion-list>
 
   <ion-infinite-scroll (ionInfinite)="loadMore($event)">

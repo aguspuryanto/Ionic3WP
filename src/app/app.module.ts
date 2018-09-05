@@ -6,7 +6,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { PostDetailPage } from './../pages/post-detail/post-detail';
+import { PostdetailPage } from '../pages/postdetail/postdetail';
+import { PostapplyPage } from '../pages/postapply/postapply';
 
 // Module
 import { CacheModule } from 'ionic-cache';
@@ -15,6 +16,7 @@ import { HttpModule } from '@angular/http';
 // Plugin
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { AdMobFree } from '@ionic-native/admob-free';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -24,7 +26,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     HomePage,
     ListPage,
-    PostDetailPage
+    PostdetailPage,
+    PostapplyPage,
+    TimeAgoPipe
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     HomePage,
     ListPage,
-    PostDetailPage
+    PostdetailPage,
+    PostapplyPage
   ],
   providers: [
     StatusBar,

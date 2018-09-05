@@ -6,7 +6,7 @@ import { LoadingController } from 'ionic-angular';
 import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 
 // Page
-import { PostDetailPage } from './../post-detail/post-detail';
+import { PostdetailPage } from './../postdetail/postdetail';
 
 // Modul
 import { Http } from '@angular/http';
@@ -24,7 +24,7 @@ export class HomePage {
 
 	@ViewChild(Slides) slides: Slides;
 
-  constructor(public navCtrl: NavController, private http: Http, public platform: Platform, public loading: LoadingController, private admobFree: AdMobFree) {
+  constructor(public navCtrl: NavController, private http: Http, public platform: Platform, public loading: LoadingController, private adMob: AdMobFree) {
 		platform.registerBackButtonAction(() => {
 			console.log("backPressed 1");
 		});
@@ -59,21 +59,16 @@ export class HomePage {
 		// });
 
 		const bannerConfig: AdMobFreeBannerConfig = {
-			// add your config here
-			id: 'ca-app-pub-9293763250492023/8573028797',
-			overlap: true, // set to true, to allow banner overlap webview
-			// for the sake of this example we will just use the test config
-			isTesting: true,
-			autoShow: true
-		};
-		
-		this.admobFree.banner.config(bannerConfig);
-		this.admobFree.banner.prepare()
-			 .then(() => {
-				 // banner Ad is ready
-				 // if we set autoShow to false, then we will need to call the show method here
-			 })
-			 .catch(e => console.log(e));
+			id:'ca-app-pub-9293763250492023/8573028797',
+			autoShow: true,
+			isTesting: true
+		  }
+		  this.adMob.banner.config(bannerConfig);
+		  this.adMob.banner.prepare().then(()=>{
+			//   banner Ad is ready
+			//   if we set autoShow to false, then we will need to call the show method her
+			  this.adMob.banner.show();
+		  }).catch(err => console.log(err));
 	}
 
 	loadPosts( page ) {
@@ -82,7 +77,7 @@ export class HomePage {
 	  }
 		return new Promise(resolve => {
 
-			this.http.get( this.url + '?page=' + page )
+			this.http.get( this.url + '?per_page=25&page=' + page )
 		    .map(res => res.json())
 		    .subscribe(data => {
 		      // we've got back the raw data, now generate the core schedule data
@@ -104,7 +99,7 @@ export class HomePage {
   }
 
 	itemTapped(event, item) {
-		this.navCtrl.push(PostDetailPage, {
+		this.navCtrl.push(PostdetailPage, {
 		  item: item
 		});
 	}
