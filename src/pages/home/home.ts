@@ -61,13 +61,13 @@ export class HomePage {
 		const bannerConfig: AdMobFreeBannerConfig = {
 			id:'ca-app-pub-9293763250492023/8573028797',
 			autoShow: true,
-			isTesting: true
+			isTesting: false
 		  }
 		  this.adMob.banner.config(bannerConfig);
 		  this.adMob.banner.prepare().then(()=>{
-			//   banner Ad is ready
-			//   if we set autoShow to false, then we will need to call the show method her
-			  this.adMob.banner.show();
+				// banner Ad is ready
+				// if we set autoShow to false, then we will need to call the show method her
+				// this.adMob.banner.show();
 		  }).catch(err => console.log(err));
 	}
 

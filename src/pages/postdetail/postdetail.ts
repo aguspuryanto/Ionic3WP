@@ -5,8 +5,8 @@ import { IonicPage, NavController, NavParams, Navbar, Platform } from 'ionic-ang
 import { SocialSharing } from '@ionic-native/social-sharing';
 
 // Page
-// import { PostapplyPage } from '../pages/postapply/postapply';
-import { PostapplyPage } from '../postapply/postapply'
+import { PostapplyPage } from '../postapply/postapply';
+import { PostmapsPage } from '../postmaps/postmaps';
 
 /**
  * Generated class for the PostdetailPage page.
@@ -43,6 +43,13 @@ export class PostdetailPage {
 	gotoApply(){
 		// console.log("applyPage: " + this.selectedItem.id)
 		this.navCtrl.push(PostapplyPage, {
+			item: this.selectedItem
+		});
+  }
+	
+	gotoMaps(){
+		// console.log("applyPage: " + this.selectedItem.id)
+		this.navCtrl.push(PostmapsPage, {
 			item: this.selectedItem
 		});
   }

@@ -5,8 +5,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-// import { PostDetailPage } from './../pages/post-detail/post-detail';
-// import { ApplyPage } from './../pages/apply/apply';
 // Module
 import { CacheModule } from 'ionic-cache';
 import { HttpModule } from '@angular/http';
@@ -14,6 +12,7 @@ import { HttpModule } from '@angular/http';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { AdMobFree } from '@ionic-native/admob-free';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 var AppModule = (function () {
@@ -44,6 +43,7 @@ var AppModule = (function () {
                         SplashScreen,
                         SocialSharing,
                         AdMobFree,
+                        Geolocation,
                         { provide: ErrorHandler, useClass: IonicErrorHandler }
                     ]
                 },] },

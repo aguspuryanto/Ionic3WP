@@ -24,11 +24,19 @@
 	    <div [innerHTML]="selectedItem.content.rendered"></div>
   </div>
 
-  <button ion-button block large (click)="gotoApply()">Apply</button>
-  <!-- <button ion-button block large [navPush]="applyPage">Apply</button> -->
+  <ion-grid>
+      <ion-row>
+        <ion-col col-9>
+          <button ion-button full (click)="gotoApply()">Apply</button>
+        </ion-col>
+        <ion-col col-3>
+          <button ion-button full (click)="gotoMaps()"> Maps </button>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
 
   <!-- Sharing Icons -->
-  <ion-grid>
+  <!-- <ion-grid>
     <ion-row>
       <ion-col>
         <button ion-button icon-only (click)="shareSheetShare()" color="primary" clear>
@@ -51,6 +59,6 @@
     </button>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 
 </ion-content>

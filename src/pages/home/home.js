@@ -4,7 +4,7 @@ import { NavController, Slides, Platform } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { AdMobFree } from '@ionic-native/admob-free';
 // Page
-import { PostDetailPage } from './../post-detail/post-detail';
+import { PostdetailPage } from './../postdetail/postdetail';
 // Modul
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -45,15 +45,13 @@ var HomePage = (function () {
         var bannerConfig = {
             id: 'ca-app-pub-9293763250492023/8573028797',
             autoShow: true,
-            isTesting: true
+            isTesting: false
         };
         this.adMob.banner.config(bannerConfig);
         this.adMob.banner.prepare().then(function () {
-            //   banner Ad is ready
-            //   if we set autoShow to false, then we will need to call the show method her
-            //   banner Ad is ready
-            //   if we set autoShow to false, then we will need to call the show method her
-            _this.adMob.banner.show();
+            // banner Ad is ready
+            // if we set autoShow to false, then we will need to call the show method her
+            // this.adMob.banner.show();
         }).catch(function (err) { return console.log(err); });
     };
     HomePage.prototype.loadPosts = function (page) {
@@ -86,7 +84,7 @@ var HomePage = (function () {
         refresher.complete();
     };
     HomePage.prototype.itemTapped = function (event, item) {
-        this.navCtrl.push(PostDetailPage, {
+        this.navCtrl.push(PostdetailPage, {
             item: item
         });
     };
